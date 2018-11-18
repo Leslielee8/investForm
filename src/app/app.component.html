@@ -1,0 +1,28 @@
+<div class="row text-black">
+  <div class="col-md-8">
+    <div class="swiper-container" [swiper]="config" index='4'>
+      <div class="swiper-wrapper">
+        <div class="swiper-slide ">
+          <app-slider-page1 [data]='data'></app-slider-page1>
+        </div>
+        <div class="swiper-slide">
+          <app-slider-page2 [data]='data'></app-slider-page2>
+        </div>
+        <div class="swiper-slide">
+          <app-slider-page3 [data]='data'></app-slider-page3>
+        </div>
+        <div class="swiper-slide">
+          <app-slider-page4 [data]='data'></app-slider-page4>
+        </div>
+        <div class="swiper-slide">
+          <app-slider-page5 [data]='data'></app-slider-page5>
+        </div>
+      </div>
+
+      <!-- <div class="swiper-scrollbar"></div> -->
+    </div>
+  </div>
+  <div class="col-md-4" >
+    <app-secure-safe></app-secure-safe>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="bs-left-container">
+  <div class=" text-left text-white bs-title">
+    <h4><span class="bs-text-maxiron bs-3minutes">3 minutes</span> to create your member’s account</h4>
+    <small>Remember, its obligation free </small>
+  </div>
+  <form  #myForm="ngForm">
+    <div class="form-group"  [ngClass]="{'has-feedback has-error':fullname.invalid && fullname.touched}">
+      <label >Your Name&nbsp;<span class="text-danger">*</span></label>
+      <input type="text" class="form-control"  name='fullname' placeholder="eg. Firstname Lastname" appInputFormatter='fullname' popover="Please enter English characters"
+      triggers="" #pop="bs-popover" (afterValid)='afterValid($event)' container='body' (blur)='pop.hide()' [(ngModel)]="data.full_name"  #fullname="ngModel" required appInputValidater>
+      <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" *ngIf='fullname.invalid && fullname.touched'></span>
+    </div>
+    <div class="form-group" [ngClass]="{'has-feedback has-error':email.invalid && email.touched}">
+      <label >Email Address&nbsp;<span class="text-danger">*</span></label>
+      <input type="text" class="form-control" name='email' placeholder="eg. Email@gmai.com" [(ngModel)]="data.email"  #email="ngModel"
+      pattern='^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$' required appInputValidater>
+      <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"  *ngIf='email.invalid && email.touched'></span>
+    </div>
+    <div class="text-right bs-main-footer">
+      <button type="button" id='form1-submit-btn' class="btn btn-primary" (click)="onSubmit()"><i class="fas fa-arrow-right"></i>&nbsp;Submit</button>
+    </div>
+  </form>
+</div>

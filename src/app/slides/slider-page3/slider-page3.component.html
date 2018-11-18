@@ -1,0 +1,74 @@
+<form class="bs-left-container" #myForm="ngForm">
+  <div class=" text-left text-white bs-title">
+    <h4 class="bs-text-maxiron">You are a member now</h4>
+    <small>Changing the way you earn</small>
+  </div>
+  <p>As a member, you can now enjoy a competitive return for your savings. Let your money work for you and
+    not against you.</p>
+  <div class="form-group" [ngClass]="{'has-feedback has-error':deposit_amount.invalid && deposit_amount.touched}">
+    <label for="exampleInputEmail1">How much would you like to deposit?&nbsp;<a class="text-primary" href="javascript:void(0);"><i
+          class="fas fa-info-circle" popover='You can add to your account at any time. Minimum deposit is $5,000.'
+          triggers="mouseenter:mouseleave"></i></a> </label>
+    <!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email"> -->
+    <div class="input-group">
+      <div class="input-group-addon">$</div>
+      <input type="text" class="form-control" placeholder="eg. 5000" name="deposit_amount" [(ngModel)]="data.deposit_amount"
+        appInputValidater required pattern='^[0-9,]{6,}|[5-9],[0-9]{3}$' #deposit_amount='ngModel' appInputFormatter='amount'>
+      <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" *ngIf='deposit_amount.invalid && deposit_amount.touched'></span>
+    </div>
+    <span class="text-danger" *ngIf='deposit_amount.invalid && deposit_amount.touched'>minimun $5,000</span>
+  </div>
+  <p>Select your term</p>
+  <div class="list-group">
+    <div class="list-group-item">
+      <div class="row ">
+        <div class="col-md-4"><b>Terms</b> </div>
+        <div class="col-md-4"><b>Annual rate</b></div>
+        <div class="col-md-4"><b>Monthly earning</b></div>
+      </div>
+    </div>
+    <button type="button" class="list-group-item" *ngFor='let rate of RATE' (click)='onTermClick(rate)' [ngClass]="{'bg-maxiron':rate.check}">
+      <div class="row">
+        <div class="col-md-4">{{rate.terms}}</div>
+        <div class="col-md-4">{{rate.rate | percent:'0.2-2'}}</div>
+        <!-- <div class="col-md-4">{{(data.deposit_amount * rate.rate|number) || 0}}</div> -->
+        <div class="col-md-4">{{(calc(data.deposit_amount,rate.rate) | number) || 0}}</div>
+      </div>
+    </button>
+  </div>
+  <div class='nouislider-container' [hidden]='!displaySlider'>
+    <nouislider [config]='someKeyboardConfig' #nouislider [tooltips]='true' [(ngModel)]="data.term" name='term'></nouislider>
+  </div>
+  <!-- <table class="table table-bordered bs-term-table ">
+    <tr class="title">
+      <th>Terms</th>
+      <th>Annual rate</th>
+      <th>Monthly earning</th>
+    </tr>
+    <tr class="">
+      <td>3 - 9 Months</td>
+      <td>6.99%</td>
+      <td></td>
+    </tr>
+
+    <tr>
+      <td>12 - 24 Months</td>
+      <td>8.69%</td>
+      <td></td>
+    </tr>
+
+    <tr>
+      <td>36 Months</td>
+      <td>10.23%</td>
+      <td></td>
+    </tr>
+  </table> -->
+  <p>
+    Note: Monthly earning are indicative only. The performance of the Funds, the repayment of capital or of
+    any particular rate of return is not guaranteed.
+  </p>
+  <div class="clearfix bs-main-footer">
+    <button type="button" class="btn btn-primary pull-left" (click)="swiperManager.prevSlide()"><i class="fas fa-arrow-left"></i>&nbsp;Previous</button>
+    <button type="button" class="btn btn-primary pull-right" (click)="onSubmit()"><i class="fas fa-arrow-right"></i>&nbsp;Submit</button>
+  </div>
+</form>

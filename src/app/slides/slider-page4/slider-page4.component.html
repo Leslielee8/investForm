@@ -1,0 +1,91 @@
+<form #myForm='ngForm' class="bs-left-container">
+  <h5>Declaration</h5>
+  <div class="form-group">
+    <label>Are you a politically exposed person?&nbsp;<a class="text-primary" href="javascript:void(0);"><i class="fas fa-info-circle"
+          popover='Politically exposed person” means an individual who holds a prominent public position or function in a government body.'
+          triggers="mouseenter:mouseleave" container='body'></i></a></label>
+    &nbsp;<ui-switch id="politically_exposed_person" [(ngModel)]="data.politically_exposed_person" name='politically_exposed_person'></ui-switch>
+  </div>
+  <div class="form-group">
+    <label>Are you a tax resident outside of Australia?&nbsp;<a class="text-primary" href="javascript:void(0);">
+        <i class="fas fa-info-circle" [popover]='popContent' triggers="mouseenter:mouseleave" container='body'
+          placement="bottom"></i></a></label>
+    &nbsp;<ui-switch id="resident_outside_au" [(ngModel)]="data.resident_outside_au" name='resident_outside_au'></ui-switch>
+    <ng-template #popContent>
+      <p>Foreign account tax compliance act (fatca) and common reporting standard (crs) self certification form.</p>
+      <p>Tax authorities require us to collect and report certain information about an investor’s tax residency status.
+        If you are unable to complete this form please seek appropriate advice relating to the tax information required
+        (as set out in the Automatic Exchange of Information Guidance published by the Australian Taxation office
+        www.ato.gov.au).
+      </p>
+    </ng-template>
+  </div>
+  <div class="form-group" *ngIf='isShowText()'>
+    <label>Would like to receive an annual report for the Fund?</label>
+    &nbsp;<ui-switch id="receive_annual_report" [(ngModel)]="data.receive_annual_report" name='receive_annual_report'></ui-switch>
+  </div>
+  <div class="form-group">
+    <label>Tax File Number</label>
+    <input type="text" class="form-control" pattern="^[0-9]{0,15}$" required [(ngModel)]="data.tax_file_number" name='tax_file_number'>
+  </div>
+  <p><b>Bank account for interest earnings</b></p>
+  <div class="form-horizontal">
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Account Holder</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" placeholder="Your Acount Holder" [(ngModel)]="data.account_holder" name='account_holder'>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label">BSB</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" placeholder="BSB Number" [(ngModel)]="data.bsb" name='bsb'>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label">Account Number</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" placeholder="Account Number" [(ngModel)]="data.account_number" name='account_number'>
+      </div>
+    </div>
+  </div>
+  <h5>Declaration and Signature</h5>
+  <div class="declaration-container">
+    <p>1. I declare that the details given on this Registration Form are true and correct. </p>
+    <p>2. declare that Maxiron Asset Management Pty Ltd is authorised to maintain this information to be used
+      for providing the applicant with information about future offers and invest in a particular product. If
+      signed under power of attorney, the attorney encloses a certified copy of the power of attorney and
+      declares that he/she has not received notice of revocation of that power.</p>
+    <p>3. My information will be collected and used in accordance with Primary Securities Ltd's privacy policy;</p>
+    <p>4. The information provided in the FATCA / CRS section may be disclosed to the Australian Taxation Office or
+      any other government bodies, including bodies located overseas, to enable it to be reported and used in
+      compliance with any FATCA or CRS regulations;</p>
+    <p>5. I will notify Primary Securities Ltd with any changes to the information provided by me and provide any
+      futher information reasonably required by Primary Securities Ltd to comply with any obligation under the FATCA
+      / CRS regulations within 30 days of such change in circumstances.</p>
+    <p>6. I have read and understood the current Product Disclosure Statement to which this application relates and
+      agree to be bound by the Constitution governing the Trust;</p>
+    <p>7. I am not aware of and have no reason to suspect that the moneys used to fund our investment have been or
+      will be derived from or realted to any money laundering, terrorism financing or similar illegal activities and
+      that I will continue to comply with Australian anti money laundering and counter terrorism financing laws.</p>
+    <p>8. We acknowledge that the Trust is subject to investment risks, which could include delays in repayment, and
+      loss of income and capital invested and that no member of Primary Securities Ltd, or any of its agents
+      guarantees the performance of the Trust or any particular rate of return;</p>
+    <p>9. If signed under power of attorney, the attorney encloses a certified copy of the power of attorney and
+      declares that he/she has not received notice of revocation of that power.</p>
+  </div>
+  <p>
+    <label class="checkbox-inline">
+      <!-- <i class="fas fa-check-square"></i> -->
+      <input type="checkbox" name='isAgree' [(ngModel)]="isAgree"> 
+      have read and agree to the above declaration
+    </label>
+  </p>
+
+  <div class="clearfix bs-main-footer">
+    <button type="button" class="btn btn-primary pull-left" (click)="swiperManager.prevSlide()"><i class="fas fa-arrow-left"></i>&nbsp;Previous</button>
+    <button type="button" class="btn btn-success pull-right" (click)="complete()"><i class="fas fa-arrow-right"></i>&nbsp;Complete</button>
+  </div>
+</form>

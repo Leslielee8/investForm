@@ -1,0 +1,17 @@
+.bg-maxiron {
+  background-color: #f7ab1b !important;
+  color: #fff !important;
+}
+
+.list-group-item {
+  &:active,
+  &:focus {
+    outline: none;
+  }
+}
+.nouislider-container{
+    height: 80px;
+    width: 90%;
+    margin:60px auto 0;
+
+}
