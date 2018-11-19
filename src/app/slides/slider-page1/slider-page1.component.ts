@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { SwiperManagerService } from 'src/app/service/swiper-manager.service';
+import { Hero } from 'src/app/entity/hero';
 
 @Component({
   selector: 'app-slider-page1',
@@ -10,7 +11,7 @@ import { SwiperManagerService } from 'src/app/service/swiper-manager.service';
 export class SliderPage1Component implements OnInit {
   @ViewChild('pop') popover;
   @ViewChild('myForm') myForm: NgForm;
-  @Input() data;
+  @Input() data: Hero;
   constructor(public swiperManager: SwiperManagerService) { }
 
   ngOnInit() {
@@ -22,6 +23,13 @@ export class SliderPage1Component implements OnInit {
     } else {
       this.popover.hide();
     }
+  }
+
+  nameChange() {
+    // console.log(this.data.full_name.match(/^[A-Za-z]*/), this.data.full_name.match(/ [A-Za-z]*$/));
+    this.data.first_name = this.data.full_name.match(/^[A-Za-z]*/)[0];
+    this.data.last_name = this.data.full_name.match(/ [A-Za-z]*$/) && this.data.full_name.match(/ [A-Za-z]*$/)[0].trim();
+    // this.data.last_name = this.data.full_name.split(' ')[0];
   }
 
   onSubmit() {

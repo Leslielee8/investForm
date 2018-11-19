@@ -16,13 +16,10 @@ export class SliderPage2Component implements OnInit {
   constructor(public swiperManager: SwiperManagerService) { }
 
   ngOnInit() {
-    console.log(this.data);
   }
 
-  handleAddressChange(address: Address) {
-    console.log(address);
-  }
   onSubmit() {
+    console.log(this.data);
     if (this.myForm.form.invalid) {
       Object.keys(this.myForm.controls).map(key => {
         this.myForm.controls[key].markAsTouched();

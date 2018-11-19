@@ -9,9 +9,60 @@
     outline: none;
   }
 }
-.nouislider-container{
-    height: 80px;
-    width: 90%;
-    margin:60px auto 0;
 
+.nouislider-container {
+  height: 80px;
+  width: 98%;
+  margin: 60px auto 0;
+
+}
+
+.text-crimson {
+  color: #c7254e;
+  font-size: 12px;
+}
+
+.money-text {
+  color: #f7ab1b;
+}
+
+.interest-container {
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 20px #e3e3e3;
+
+  h5 {
+    margin: 0 0 10px;
+    color: #fff;
+    padding: 10px;
+    background: #f7ab1b;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+
+  .inerest-text {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+}
+
+
+/* 
+.list-group-item {
+  &.content{
+    padding: 0;
+  }
+  > label {
+    width: 100%;
+    margin: 0;
+    cursor: pointer;
+    padding: 10px 15px;
+    display: block;
+  }
+}
+ */
+
+.list-group {
+  margin-bottom: 10px;
 }

@@ -18,8 +18,8 @@
     </div>
     <span class="text-danger" *ngIf='deposit_amount.invalid && deposit_amount.touched'>minimun $5,000</span>
   </div>
-  <p>Select your term</p>
-  <div class="list-group">
+  <h5>Select your term&nbsp;<span class="text-danger">*</span></h5>
+  <!--  <div class="list-group">
     <div class="list-group-item">
       <div class="row ">
         <div class="col-md-4"><b>Terms</b> </div>
@@ -27,18 +27,42 @@
         <div class="col-md-4"><b>Monthly earning</b></div>
       </div>
     </div>
-    <button type="button" class="list-group-item" *ngFor='let rate of RATE' (click)='onTermClick(rate)' [ngClass]="{'bg-maxiron':rate.check}">
+    <button type="button" class="list-group-item" *ngFor='let rate of RATE;index as i;' (click)='onTermClick(i)'
+      [ngClass]="{'bg-maxiron': term === i}">
       <div class="row">
         <div class="col-md-4">{{rate.terms}}</div>
-        <div class="col-md-4">{{rate.rate | percent:'0.2-2'}}</div>
-        <!-- <div class="col-md-4">{{(data.deposit_amount * rate.rate|number) || 0}}</div> -->
+        <div class="col-md-4">{{rate.rate/100 | percent:'0.2-2'}}</div>
         <div class="col-md-4">{{(calc(data.deposit_amount,rate.rate) | number) || 0}}</div>
       </div>
+      <input type="radio" id='radio{{i}}' name='term' [value]='i' [(ngModel)]='term' hidden required>
     </button>
   </div>
-  <div class='nouislider-container' [hidden]='!displaySlider'>
-    <nouislider [config]='someKeyboardConfig' #nouislider [tooltips]='true' [(ngModel)]="data.term" name='term'></nouislider>
+  <div class="text-danger" *ngIf='myForm.controls.term?.invalid && myForm.controls.term?.touched'>
+    please, select your term.
+  </div> -->
+  <!-- <div class='nouislider-container' [hidden]='term === undefined || term === 2'> -->
+  <div class='nouislider-container'>
+    <nouislider class='nouislider' [config]='someKeyboardConfig' #nouislider [tooltips]='true' [(ngModel)]="data.term" name='term'
+      (ngModelChange)='onTermChange()'></nouislider>
   </div>
+  <div class="interest-container">
+    <h5>Interest</h5>
+    <div class="row text-center">
+      <div class="col-xs-6">
+        <div>
+          Annual Rate:
+          <div class="inerest-text">{{data.annual_rate|percent:'0.0-4'}}</div>
+          </div>
+      </div>
+      <div class="col-xs-6">
+        <div>
+          Monthly earning:
+          <br />
+          <div class="inerest-text money-text"><sup>$</sup>{{(calc(data.deposit_amount,data.annual_rate) | number:'0.2-4') || 0}}</div></div>
+      </div>
+    </div>
+  </div>
+  
   <!-- <table class="table table-bordered bs-term-table ">
     <tr class="title">
       <th>Terms</th>

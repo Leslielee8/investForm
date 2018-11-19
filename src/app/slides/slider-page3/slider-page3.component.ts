@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { Hero } from 'src/app/entity/hero';
-import { SwiperManagerService } from 'src/app/service/swiper-manager.service';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { NouisliderComponent } from 'ng2-nouislider';
+import { SwiperManagerService } from 'src/app/service/swiper-manager.service';
 
 @Component({
   selector: 'app-slider-page3',
@@ -9,22 +9,22 @@ import { NouisliderComponent } from 'ng2-nouislider';
   styleUrls: ['./slider-page3.component.scss']
 })
 export class SliderPage3Component implements OnInit {
-  @Input() data: Hero;
+  @Input() data;
   displaySlider = false;
-  RATE = [
+  /* RATE = [
     {
       terms: '3 - 9 Months',
-      rate: 0.0699,
+      rate: 6.99,
       check: false,
       range: {
         min: 3,
-        max: 9
+        max: 36
       },
       displaySlider: true
     },
     {
       terms: '12 - 24 Months',
-      rate: 0.0869,
+      rate: 8.69,
       check: false,
       range: {
         min: 12,
@@ -34,7 +34,7 @@ export class SliderPage3Component implements OnInit {
     },
     {
       terms: '36 Months',
-      rate: 0.1023,
+      rate: 10.23,
       check: false,
       range: {
         min: 0,
@@ -42,17 +42,25 @@ export class SliderPage3Component implements OnInit {
       },
       displaySlider: false
     }
+  ]; */
+  RATE = [
+    {
+      min: 3,
+      max: 11,
+      rate: 0.0699
+    },
+    {
+      min: 12,
+      max: 24,
+      rate: 0.0869
+    },
+    {
+      min: 36,
+      max: 36,
+      rate: 0.1023
+    }
   ];
-
   someKeyboardConfig: any = {
-    /*  connect: true,
-     start: [400, 500],
-     step: 10,
-     range: {
-       min: 360,
-       max: 1080
-     },
-     behaviour: 'drag', */
     behaviour: 'drag',
     connect: true,
     start: 3,
@@ -60,42 +68,46 @@ export class SliderPage3Component implements OnInit {
     step: 1,
     pageSteps: 10,  // number of page steps, defaults to 10
     range: {
-      min: 3,
-      max: 9
+      'min': [3],
+      '95%': [24, 12],
+      'max': [36]
     },
-    /* pips: {
-      mode: 'count',
-      density: 1,
-      values: 7,
-      stepped: true
-    } */
     pips: {
-      mode: 'steps',
-      density: 3,
+      mode: 'values',
+      values: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 36],
+      density: 4,
     }
   };
 
   @ViewChild('nouislider') nouislider: NouisliderComponent;
-
+  @ViewChild('myForm') myForm: NgForm;
+  term;
   constructor(public swiperManager: SwiperManagerService) { }
 
   ngOnInit() {
+    this.data.term = 12;
+    this.data.annual_rate = 0.0869;
   }
 
-  onTermClick(rate) {
+  /* onTermClick(i) {
+    const rate = this.RATE[i];
+    this.term = i;
     this.data.annual_rate = rate.rate;
-    this.RATE.map(r => {
-      r.check = false;
-    });
-    rate.check = true;
     this.someKeyboardConfig.range = rate.range;
-    console.log(this.nouislider, rate);
     this.nouislider.slider.updateOptions({
       range: rate.range,
       start: rate.range.min
     });
-    this.displaySlider = rate.displaySlider;
     this.swiperManager.directiveRef.update();
+    if (i === 2) {
+      this.data.term = 36;
+    }
+  } */
+
+  onTermChange() {
+    console.log(this.data.term);
+    const _rs = this.RATE.find(r => (this.data.term >= r.min && this.data.term <= r.max));
+    this.data.annual_rate = _rs.rate;
   }
 
   calc(amount: string, rate: number) {
@@ -103,6 +115,13 @@ export class SliderPage3Component implements OnInit {
   }
 
   onSubmit() {
-    this.swiperManager.nextSlide();
+    console.log(this.myForm.controls.term.invalid);
+    if (this.myForm.form.invalid) {
+      Object.keys(this.myForm.controls).map(key => {
+        this.myForm.controls[key].markAsTouched();
+      });
+    } else {
+      this.swiperManager.nextSlide();
+    }
   }
 }

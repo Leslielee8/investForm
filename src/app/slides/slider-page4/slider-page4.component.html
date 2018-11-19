@@ -24,35 +24,43 @@
     <label>Would like to receive an annual report for the Fund?</label>
     &nbsp;<ui-switch id="receive_annual_report" [(ngModel)]="data.receive_annual_report" name='receive_annual_report'></ui-switch>
   </div>
-  <div class="form-group">
+  <div class="form-group" [ngClass]="{'has-feedback has-error':tax_file_number.invalid && tax_file_number.touched}">
     <label>Tax File Number</label>
-    <input type="text" class="form-control" pattern="^[0-9]{0,15}$" required [(ngModel)]="data.tax_file_number" name='tax_file_number'>
+    <input type="text" class="form-control" pattern="^[0-9]{0,15}$" required [(ngModel)]="data.tax_file_number" name='tax_file_number'
+      #tax_file_number="ngModel" appInputValidater>
+    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" *ngIf='tax_file_number.invalid && tax_file_number.touched'></span>
   </div>
   <p><b>Bank account for interest earnings</b></p>
   <div class="form-horizontal">
-    <div class="form-group">
-      <label class="col-sm-3 control-label">Account Holder</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" placeholder="Your Acount Holder" [(ngModel)]="data.account_holder" name='account_holder'>
+    <div class="form-group" [ngClass]="{'has-feedback has-error':account_holder.invalid && account_holder.touched}">
+      <label class="col-sm-4 control-label">Account Holder</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" placeholder="Your Acount Holder" [(ngModel)]="data.account_holder" name='account_holder'
+          required #account_holder="ngModel" appInputValidater>
+        <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" *ngIf='account_holder.invalid && account_holder.touched'></span>
       </div>
     </div>
 
-    <div class="form-group">
-      <label class="col-sm-3 control-label">BSB</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" placeholder="BSB Number" [(ngModel)]="data.bsb" name='bsb'>
+    <div class="form-group" [ngClass]="{'has-feedback has-error':bsb.invalid && bsb.touched}">
+      <label class="col-sm-4 control-label">BSB</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" placeholder="BSB Number" [(ngModel)]="data.bsb" name='bsb' required
+          #bsb="ngModel" appInputValidater>
+        <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" *ngIf='bsb.invalid && bsb.touched'></span>
       </div>
     </div>
 
-    <div class="form-group">
-      <label class="col-sm-3 control-label">Account Number</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" placeholder="Account Number" [(ngModel)]="data.account_number" name='account_number'>
+    <div class="form-group" [ngClass]="{'has-feedback has-error':account_number.invalid && account_number.touched}">
+      <label class="col-sm-4 control-label">Account Number</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" placeholder="Account Number" [(ngModel)]="data.account_number" name='account_number'
+          required #account_number="ngModel" appInputValidater>
+        <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" *ngIf='account_number.invalid && account_number.touched'></span>
       </div>
     </div>
   </div>
   <h5>Declaration and Signature</h5>
-  <div class="declaration-container">
+  <div class="declaration-container" *ngIf='isShowText()'>
     <p>1. I declare that the details given on this Registration Form are true and correct. </p>
     <p>2. declare that Maxiron Asset Management Pty Ltd is authorised to maintain this information to be used
       for providing the applicant with information about future offers and invest in a particular product. If
@@ -76,12 +84,23 @@
     <p>9. If signed under power of attorney, the attorney encloses a certified copy of the power of attorney and
       declares that he/she has not received notice of revocation of that power.</p>
   </div>
+  <div *ngIf='!isShowText()'>
+    <p>I. I declare that the details given on this Registration Form are true and correct. </p>
+    <p>2. declare that Maxiron Asset Management Pty Ltd is authorised to maintain this information to be used for
+      providing the applicant with information about future offers and invest in a particular product. If signed under
+      power of attorney, the attorney encloses a certified copy of the power of attorney and declares that he/she has
+      not received notice of revocation of that power.</p>
+  </div>
   <p>
+    <!-- <i class="fas fa-check-square"></i> -->
     <label class="checkbox-inline">
       <!-- <i class="fas fa-check-square"></i> -->
-      <input type="checkbox" name='isAgree' [(ngModel)]="isAgree"> 
-      have read and agree to the above declaration
+      <input type="checkbox" name='isAgree' [(ngModel)]="isAgree" required #agree='ngModel'>
+      <span class="custom-control-label">have read and agree to the above declaration</span>
     </label>
+    <br />
+    <span class="text-danger" *ngIf='agree.invalid && agree.touched'>please, confirm that read and agree the
+      Declaration</span>
   </p>
 
   <div class="clearfix bs-main-footer">

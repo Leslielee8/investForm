@@ -16,6 +16,7 @@ import { SliderPage4Component } from './slides/slider-page4/slider-page4.compone
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { NouisliderModule } from 'ng2-nouislider';
 import { SliderPage5Component } from './slides/slider-page5/slider-page5.component';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +33,7 @@ import { SliderPage5Component } from './slides/slider-page5/slider-page5.compone
     SwiperModule,
     ShareModule,
     FormsModule,
+    HttpClientModule,
     PopoverModule.forRoot(),
     BsDatepickerModule.forRoot(),
     UiSwitchModule.forRoot({

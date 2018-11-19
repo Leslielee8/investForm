@@ -7,8 +7,9 @@
     <div class="form-group"  [ngClass]="{'has-feedback has-error':fullname.invalid && fullname.touched}">
       <label >Your Name&nbsp;<span class="text-danger">*</span></label>
       <input type="text" class="form-control"  name='fullname' placeholder="eg. Firstname Lastname" appInputFormatter='fullname' popover="Please enter English characters"
-      triggers="" #pop="bs-popover" (afterValid)='afterValid($event)' container='body' (blur)='pop.hide()' [(ngModel)]="data.full_name"  #fullname="ngModel" required appInputValidater>
-      <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" *ngIf='fullname.invalid && fullname.touched'></span>
+      triggers="" #pop="bs-popover" (afterValid)='afterValid($event)' container='body' (blur)='pop.hide()' [(ngModel)]="data.full_name"  
+      #fullname="ngModel" required appInputValidater (change)='nameChange()'>
+      <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" *ngIf='fullname.invalid && fullname.touched' ></span>
     </div>
     <div class="form-group" [ngClass]="{'has-feedback has-error':email.invalid && email.touched}">
       <label >Email Address&nbsp;<span class="text-danger">*</span></label>

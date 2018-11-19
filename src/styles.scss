@@ -4,8 +4,9 @@
 @import '~ngx-ui-switch/ui-switch.component.scss';
 @import "~nouislider/distribute/nouislider.min.css";
 @import "./assets/plugin-nouislider";
+
 * {
-  box-sizing: border-box;
+  box-sizing: border-box !important;
 }
 
 .bg-black {
@@ -2371,4 +2372,18 @@ bs-datepicker-container {
 .switch-label-checked,
 .switch-label-unchecked {
   font-size: 14px !important;
+}
+
+.nouislider {
+  .noUi-tooltip {
+    &:after {
+      content: 'Months';
+      display: block;
+      position: absolute;
+      bottom: 4px;
+      right: -44px;
+      font-size: 12px;
+      z-index: 1000;
+    }
+  }
 }
