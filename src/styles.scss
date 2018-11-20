@@ -2387,3 +2387,33 @@ bs-datepicker-container {
     }
   }
 }
+
+.pac-container {
+  // display: none;
+}
+
+.btn.btn-continue {
+  border: 1px solid transparent !important;
+  color: #fff !important;
+  background: #4FD417;
+
+  &:active,
+  &:hover,
+  &:focus {
+    background: #44a11c !important;
+    outline: none;
+  }
+}
+
+.btn.btn-back {
+  border: 1px solid transparent !important;
+  color: #fff !important;
+  background: #d8d8d8;
+
+  &:active,
+  &:hover,
+  &:focus {
+    background: #a1a1a1 !important;
+    outline: none;
+  }
+}

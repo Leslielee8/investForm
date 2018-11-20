@@ -28,7 +28,8 @@ export class SliderPage1Component implements OnInit {
   nameChange() {
     // console.log(this.data.full_name.match(/^[A-Za-z]*/), this.data.full_name.match(/ [A-Za-z]*$/));
     this.data.first_name = this.data.full_name.match(/^[A-Za-z]*/)[0];
-    this.data.last_name = this.data.full_name.match(/ [A-Za-z]*$/) && this.data.full_name.match(/ [A-Za-z]*$/)[0].trim();
+    this.data.last_name = this.data.full_name
+      && this.data.full_name.trim().match(/ [A-Za-z]*$/) && this.data.full_name.trim().match(/ [A-Za-z]*$/)[0].trim();
     // this.data.last_name = this.data.full_name.split(' ')[0];
   }
 
@@ -37,6 +38,7 @@ export class SliderPage1Component implements OnInit {
       Object.keys(this.myForm.controls).map(key => {
         this.myForm.controls[key].markAsTouched();
       });
+      this.swiperManager.update();
     } else {
       this.swiperManager.nextSlide();
     }

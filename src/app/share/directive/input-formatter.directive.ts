@@ -19,7 +19,22 @@ export class InputFormatterDirective {
         .replace(/([A-Za-z])([A-Za-z]*)/g, (_v, $1, $2) => ($1.toUpperCase() + $2)))
     },
     'amount': {
-      fn: (val) => (this.currencyPipe.transform(val.replace(/[^0-9]/g, ''), ' ', 'symbol', '0.0-0').trim())
+      fn: (val) => ((this.currencyPipe.transform(val.replace(/[^0-9]/g, ''), ' ', 'symbol', '0.0-0') || '').trim())
+    },
+    'phone': {
+      fn: (val) => {
+        const value = val.replace(/[^0-9]/g, '');
+        if (value) {
+          if (value.match(/^\b04/)) {
+            return value.replace(/^([0-9]{4}) ?([0-9]{3}) ?([0-9]{3}).*$/, '$1 $2 $3');
+          } else if (value.match(/^\b0/)) {
+            return value.replace(/^([0-9]{2}) ?([0-9]{4}) ?([0-9]{4}).*$/, '$1 $2 $3');
+          } else if (value.match(/^[1-9][0-9 ]{7}/)) {
+            return value.replace(/^([1-9][0-9]{3}) ?([0-9]{4}).*$/, '$1 $2');
+          }
+        }
+        return value;
+      }
     }
   };
 

@@ -1,7 +1,7 @@
 <form class="bs-left-container" #myForm="ngForm">
   <div class=" text-left text-white bs-title">
     <h4 class="bs-text-maxiron">You are a member now</h4>
-    <small>Changing the way you earn</small>
+    <p>Changing the way you earn</p>
   </div>
   <p>As a member, you can now enjoy a competitive return for your savings. Let your money work for you and
     not against you.</p>
@@ -18,7 +18,7 @@
     </div>
     <span class="text-danger" *ngIf='deposit_amount.invalid && deposit_amount.touched'>minimun $5,000</span>
   </div>
-  <h5>Select your term&nbsp;<span class="text-danger">*</span></h5>
+  <p>Select your term</p>
   <!--  <div class="list-group">
     <div class="list-group-item">
       <div class="row ">
@@ -92,7 +92,7 @@
     any particular rate of return is not guaranteed.
   </p>
   <div class="clearfix bs-main-footer">
-    <button type="button" class="btn btn-primary pull-left" (click)="swiperManager.prevSlide()"><i class="fas fa-arrow-left"></i>&nbsp;Previous</button>
-    <button type="button" class="btn btn-primary pull-right" (click)="onSubmit()"><i class="fas fa-arrow-right"></i>&nbsp;Submit</button>
+    <button type="button" class="btn btn-back pull-left" (click)="swiperManager.prevSlide()"><i class="fas fa-arrow-left"></i>&nbsp;Back</button>
+    <button type="button" class="btn btn-continue pull-right" (click)="onSubmit()"><i class="fas fa-arrow-right"></i>&nbsp;Continue</button>
   </div>
 </form>

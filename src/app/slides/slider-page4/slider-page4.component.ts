@@ -12,8 +12,8 @@ import { NgForm } from '@angular/forms';
 export class SliderPage4Component implements OnInit {
   @Input() data;
   @ViewChild('myForm') myForm: NgForm;
-
   isAgree;
+
   constructor(public swiperManager: SwiperManagerService, private formServie: FormService) { }
 
   ngOnInit() {
@@ -28,6 +28,7 @@ export class SliderPage4Component implements OnInit {
       Object.keys(this.myForm.controls).map(key => {
         this.myForm.controls[key].markAsTouched();
       });
+      this.swiperManager.update();
     } else {
       this.formServie.doComplete(this.data).subscribe(r => {
         console.log(r);

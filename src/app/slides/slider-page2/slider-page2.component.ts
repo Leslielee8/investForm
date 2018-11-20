@@ -24,6 +24,7 @@ export class SliderPage2Component implements OnInit {
       Object.keys(this.myForm.controls).map(key => {
         this.myForm.controls[key].markAsTouched();
       });
+      this.swiperManager.update();
     } else {
       this.swiperManager.nextSlide();
     }

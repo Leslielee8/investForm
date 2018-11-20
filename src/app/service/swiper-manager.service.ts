@@ -16,4 +16,8 @@ export class SwiperManagerService {
     this.directiveRef.prevSlide();
   }
 
+  update() {
+    this.directiveRef.update();
+  }
+
 }

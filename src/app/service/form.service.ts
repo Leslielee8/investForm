@@ -14,7 +14,7 @@ export class FormService {
   doComplete(data): Observable<any> {
     data.deposit_amount = data.deposit_amount.replace(/,/g, '');
     data.date_of_birth = moment(data.date_of_birth).format('YYYYMMDD');
-    return this.httpManager.doPost(environment.domain + '/services/process-investor.php', new HttpParams({
+    return this.httpManager.doPost(environment.domain + 'services/process-investor.php', new HttpParams({
       fromObject: data
     }));
   }

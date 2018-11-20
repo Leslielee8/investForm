@@ -30,7 +30,8 @@
       #tax_file_number="ngModel" appInputValidater>
     <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" *ngIf='tax_file_number.invalid && tax_file_number.touched'></span>
   </div>
-  <p><b>Bank account for interest earnings</b></p>
+  <br />
+  <h5 class=""><b>Bank account for interest earnings</b></h5>
   <div class="form-horizontal">
     <div class="form-group" [ngClass]="{'has-feedback has-error':account_holder.invalid && account_holder.touched}">
       <label class="col-sm-4 control-label">Account Holder</label>
@@ -59,6 +60,7 @@
       </div>
     </div>
   </div>
+  <br />
   <h5>Declaration and Signature</h5>
   <div class="declaration-container" *ngIf='isShowText()'>
     <p>1. I declare that the details given on this Registration Form are true and correct. </p>
@@ -91,20 +93,16 @@
       power of attorney, the attorney encloses a certified copy of the power of attorney and declares that he/she has
       not received notice of revocation of that power.</p>
   </div>
-  <p>
+  <!-- <i class="fas fa-check-square"></i> -->
+  <p class="checkbox-inline" (click)='isAgree = !isAgree'>
     <!-- <i class="fas fa-check-square"></i> -->
-    <label class="checkbox-inline">
-      <!-- <i class="fas fa-check-square"></i> -->
-      <input type="checkbox" name='isAgree' [(ngModel)]="isAgree" required #agree='ngModel'>
-      <span class="custom-control-label">have read and agree to the above declaration</span>
-    </label>
-    <br />
-    <span class="text-danger" *ngIf='agree.invalid && agree.touched'>please, confirm that read and agree the
-      Declaration</span>
+    <input type="checkbox" name='isAgree' [(ngModel)]="isAgree" required #agree='ngModel' id='isAgree'>
+    <span class="custom-control-label">have read and agree to the above declaration</span>
   </p>
-
+  <p class="text-danger" *ngIf='agree.invalid && agree.touched'>please, confirm that read and agree the
+    Declaration</p>
   <div class="clearfix bs-main-footer">
-    <button type="button" class="btn btn-primary pull-left" (click)="swiperManager.prevSlide()"><i class="fas fa-arrow-left"></i>&nbsp;Previous</button>
-    <button type="button" class="btn btn-success pull-right" (click)="complete()"><i class="fas fa-arrow-right"></i>&nbsp;Complete</button>
+    <button type="button" class="btn btn-back pull-left" (click)="swiperManager.prevSlide()"><i class="fas fa-arrow-left"></i>&nbsp;Back</button>
+    <button type="button" class="btn btn-continue pull-right" (click)="complete()"><i class="fas fa-arrow-right"></i>&nbsp;Complete</button>
   </div>
 </form>
