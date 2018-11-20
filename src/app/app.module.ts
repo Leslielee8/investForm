@@ -17,6 +17,15 @@ import { UiSwitchModule } from 'ngx-ui-switch';
 import { NouisliderModule } from 'ng2-nouislider';
 import { SliderPage5Component } from './slides/slider-page5/slider-page5.component';
 import { HttpClientModule } from '@angular/common/http';
+import { DropzoneModule } from 'ngx-dropzone-wrapper';
+import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
+import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
+const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
+  // Change this to your upload POST address:
+  url: 'https://www.maxironwealth.com.au/develop2/services/process-dropzone.php',
+  maxFilesize: 50,
+  acceptedFiles: 'image/*'
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,9 +55,14 @@ import { HttpClientModule } from '@angular/common/http';
       uncheckedLabel: 'No'
     }),
     NouisliderModule,
+    DropzoneModule
   ],
   providers: [
-    CurrencyPipe
+    CurrencyPipe,
+    {
+      provide: DROPZONE_CONFIG,
+      useValue: DEFAULT_DROPZONE_CONFIG
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -2398,8 +2398,8 @@ bs-datepicker-container {
   background: #4FD417;
 
   &:active,
-  &:hover,
-  &:focus {
+  &:focus,
+  &:hover {
     background: #44a11c !important;
     outline: none;
   }
@@ -2411,9 +2411,15 @@ bs-datepicker-container {
   background: #d8d8d8;
 
   &:active,
-  &:hover,
-  &:focus {
+  &:focus,
+  &:hover {
     background: #a1a1a1 !important;
     outline: none;
+  }
+}
+
+.dropzone-container {
+  .dz-message {
+    height: 80px !important;
   }
 }

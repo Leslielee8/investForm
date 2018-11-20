@@ -4,11 +4,16 @@
     <small>Changing the way you earn</small>
   </div>
   <h5>1.Upload your Driver Licence or Passport.</h5>
-  <p class="text-center">
+  <!-- <p class="text-center">
     <button class="btn btn-primary">Upload</button>
-  </p>
+  </p> -->
+  <div>
+    <dropzone class="dropzone-container" [config]="config" [message]="'Click or drag images here to upload'" (error)="onUploadError($event)"
+      (success)="onUploadSuccess($event)"></dropzone>
+  </div>
   <p>Or, you can email to <code>investor@maxironwealth.com.au</code></p>
-  <small>Document is to fulfil the requirements of the Anti-Money Laundering and Counter Terrorism Financing Legislation.</small>
+  <small>Document is to fulfil the requirements of the Anti-Money Laundering and Counter Terrorism Financing
+    Legislation.</small>
   <h5>2.Please transfer {{data.deposit_amount}} to the follow account.</h5>
   <table class="table table-bordered">
     <tr>
