@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NouisliderComponent } from 'ng2-nouislider';
 import { SwiperManagerService } from 'src/app/service/swiper-manager.service';
+import { FormService } from 'src/app/service/form.service';
 
 @Component({
   selector: 'app-slider-page3',
@@ -46,8 +47,13 @@ export class SliderPage3Component implements OnInit {
   RATE = [
     {
       min: 3,
-      max: 11,
-      rate: 0.0699
+      max: 6,
+      rate: 0.0659
+    },
+    {
+      min: 6,
+      max: 12,
+      rate: 0.0829
     },
     {
       min: 12,
@@ -55,8 +61,13 @@ export class SliderPage3Component implements OnInit {
       rate: 0.0869
     },
     {
+      min: 24,
+      max: 26,
+      rate: 0.0909
+    },
+    {
       min: 36,
-      max: 36,
+      max: 999,
       rate: 0.1023
     }
   ];
@@ -69,12 +80,11 @@ export class SliderPage3Component implements OnInit {
     pageSteps: 10,  // number of page steps, defaults to 10
     range: {
       'min': [3],
-      '95%': [24, 12],
       'max': [36]
     },
     pips: {
       mode: 'values',
-      values: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 36],
+      values: [3, 6, 12, 24, 36],
       density: 4,
     }
   };
@@ -82,7 +92,7 @@ export class SliderPage3Component implements OnInit {
   @ViewChild('nouislider') nouislider: NouisliderComponent;
   @ViewChild('myForm') myForm: NgForm;
   term;
-  constructor(public swiperManager: SwiperManagerService) { }
+  constructor(public swiperManager: SwiperManagerService, private formService: FormService) { }
 
   ngOnInit() {
     this.data.term = 12;
@@ -105,24 +115,27 @@ export class SliderPage3Component implements OnInit {
   } */
 
   onTermChange() {
-    console.log(this.data.term);
-    const _rs = this.RATE.find(r => (this.data.term >= r.min && this.data.term <= r.max));
+    const _rs = this.RATE.find(r => (this.data.term >= r.min && this.data.term < r.max));
     this.data.annual_rate = _rs.rate;
   }
 
   calc(amount: string, rate: number) {
-    return amount && Number(amount.replace(/[,]/g, '')) * rate;
+    return amount && Number(String(amount).replace(/[,]/g, '')) * rate / 12;
   }
 
   onSubmit() {
-    console.log(this.myForm.controls.term.invalid);
+    Object.keys(this.myForm.controls).map(key => {
+      this.myForm.controls[key].updateValueAndValidity();
+    });
     if (this.myForm.form.invalid) {
       Object.keys(this.myForm.controls).map(key => {
         this.myForm.controls[key].markAsTouched();
       });
       this.swiperManager.update();
     } else {
-      this.swiperManager.nextSlide();
+      this.formService.doComplete(this.data).subscribe(() => {
+        this.swiperManager.nextSlide();
+      });
     }
   }
 }

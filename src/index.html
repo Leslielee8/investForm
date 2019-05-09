@@ -12,8 +12,8 @@
         gtag('js', new Date());
 
         gtag('config', 'UA-128970837-1');
+        gtag('config', 'AW-840237485');
     </script>
-
     <meta charset="utf-8" />
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -23,14 +23,46 @@
     <link href="../../assets/images/maxiron-icon.ico" rel="shortcut icon" type="image/x-icon" />
 
     <!-- InstanceBeginEditable name="template-meta" -->
-    <title>Banner Template Large</title>
+    <title>Maxiron Wealth - 5 minutes to sign up</title>
     <meta name="description" content="" />
     <link rel="canonical" href="" />
     <link rel="stylesheet" href="https://www.maxironwealth.com.au/develop2/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
         crossorigin="anonymous">
+    <link rel="stylesheet" href="https://www.maxironwealth.com.au/develop2/assets/dropzone/dropzone.min.css">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJHl0Vjal_VPC_Pn0Dgma2pBdXSpgO-Uk&libraries=places&sensor=false&language=en"></script>
-    <base href='investForm'>
+    <script src="https://www.maxironwealth.com.au/develop2/assets/dropzone/dropzone.min.js"></script>
+
+    <!-- Event snippet for Completed Sign-up Form conversion page
+    In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+    <script>
+        function gtag_report_conversion(url) {
+            var callback = function () {
+                if (typeof (url) != 'undefined') {
+                    window.location = url;
+                }
+            };
+            gtag('event', 'conversion', {
+                'send_to': 'AW-840237485/5cojCIym5JMBEK2D1JAD',
+                'value': 1.0,
+                'currency': 'AUD',
+                'event_callback': callback
+            });
+            return false;
+        }
+    </script>
+    <!-- <base href='investForm'> -->
+    <!-- Hotjar Tracking Code for https://www.maxironwealth.com.au/ -->
+    <script>
+        (function (h, o, t, j, a, r) {
+            h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
+            h._hjSettings = { hjid: 1181912, hjsv: 6 };
+            a = o.getElementsByTagName('head')[0];
+            r = o.createElement('script'); r.async = 1;
+            r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+    </script>
     <!-- InstanceEndEditable -->
 
     <!-- <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css" />
@@ -80,6 +112,7 @@
 
 
     <!-- InstanceBeginEditable name="template-script" -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
     <!-- InstanceEndEditable -->
 
 </body>

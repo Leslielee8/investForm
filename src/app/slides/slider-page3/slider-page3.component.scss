@@ -27,17 +27,19 @@
 }
 
 .interest-container {
+  margin-top: 20px;
   margin-bottom: 20px;
   border-radius: 5px;
   box-shadow: 0 0 20px #e3e3e3;
 
   h5 {
     margin: 0 0 10px;
-    color: #fff;
+    color: #000;
     padding: 10px;
-    background: #f7ab1b;
+    // background: #f7ab1b;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    border-bottom: 1px solid #f2f2f2;
   }
 
   .inerest-text {

@@ -8,8 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "online": "ng build --prod --output-path ../Form",
-    "onlineDev": "ng build --output-path ../Form"
+    "online": "ng build --prod --output-path ../../Form",
+    "onlineDev": "ng build --output-path ../FormDev/"
   },
   "private": true,
   "dependencies": {
@@ -26,7 +26,6 @@
     "moment": "^2.22.2",
     "ng2-nouislider": "^1.7.13",
     "ngx-bootstrap": "^3.0.1",
-    "ngx-dropzone-wrapper": "^7.0.0",
     "ngx-google-places-autocomplete": "^2.0.1",
     "ngx-swiper-wrapper": "^7.0.0",
     "ngx-ui-switch": "^8.0.0-beta.0",

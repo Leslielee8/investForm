@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  domain: 'https://www.maxironwealth.com.au/develop2/'
+  domain: 'https://www.maxironwealth.com.au/'
 };

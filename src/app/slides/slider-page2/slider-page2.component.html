@@ -1,7 +1,7 @@
 <form #myForm="ngForm" class="bs-left-container">
   <div class=" text-left text-white bs-title">
     <h4 class="bs-text-maxiron">Basic</h4>
-    <p>Remember, its obligation free</p>
+    <!-- <p>Remember, its obligation free</p> -->
   </div>
   <div class="form-group" [ngClass]="{'has-feedback has-error':firstname.invalid && firstname.touched}">
     <label>First Name</label>
@@ -20,32 +20,96 @@
     <!-- <input ngx-google-places-autocomplete #placesRef="ngx-places" (onAddressChange)="data.residential_address = $event.formatted_address" type="text"
       class="form-control" placeholder="eg. 8 vitory croft Hurstville" name='residential_address' [(ngModel)]="data.residential_address"
       required appInputValidater #residential_address='ngModel'> -->
-      <input  type="text" class="form-control" placeholder="eg. 8 vitory croft Hurstville" name='residential_address' [(ngModel)]="data.residential_address"
-      required appInputValidater #residential_address='ngModel'>
+    <input type="text" ngx-google-places-autocomplete [options]="options" (onAddressChange)="data.residential_address = $event.formatted_address"
+      class="form-control" placeholder="eg. 8 vitory croft Hurstville" name='residential_address' [(ngModel)]="data.residential_address"
+      required appInputValidater #residential_address='ngModel' (input)='onResidentialAddressInput($event)'>
     <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" *ngIf='residential_address.invalid && residential_address.touched'></span>
+    <div class='postal-address-valid-container'>Is this your also your postal address?&nbsp;<ui-switch id="isPostalAddress"
+        (change)='isPostalAddressChange($event)' name='postal_address' checked></ui-switch>
+    </div>
+  </div>
+  <div class="form-group" *ngIf='!isPostalAddress' [ngClass]="{'has-feedback has-error':postal_address.invalid && postal_address.touched}">
+    <label>Postal Address</label>
+    <input ngx-google-places-autocomplete [options]="options" type="text" class="form-control" placeholder="eg. 8 vitory croft Hurstville"
+      name='postal_address' [(ngModel)]="data.postal_address" appInputValidater required #postal_address='ngModel'
+      (onAddressChange)="data.postal_address = $event.formatted_address">
+    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" *ngIf='postal_address.invalid && postal_address.touched'></span>
   </div>
   <div class="form-group">
-    <label>Postal Address</label>
-    <input ngx-google-places-autocomplete type="text" class="form-control" placeholder="eg. 8 vitory croft Hurstville"
-      name='postal_address' [(ngModel)]="data.postal_address" appInputValidater (onAddressChange)="data.postal_address = $event.formatted_address">
-  </div>
-  <div class="form-group" [ngClass]="{'has-feedback has-error':date_of_birth.invalid && date_of_birth.touched}">
     <label>Date of Birth</label>
-    <input type="text" class="form-control" placeholder="eg. 01/01/1989" name='date_of_birth' [(ngModel)]="data.date_of_birth"
-      #date_of_birth='ngModel' bsDatepicker required>
-    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" *ngIf='date_of_birth.invalid && date_of_birth.touched'></span>
-  </div>  
+    <!-- <input type="text" class="form-control" placeholder="eg. 01/01/1989" name='date_of_birth' [(ngModel)]="data.date_of_birth"
+      #date_of_birth='ngModel' bsDatepicker required> -->
+    <div class="input-group">
+      <select class="form-control" name='day' required pattern='^[0-9]{1,2}$' [(ngModel)]="day"  #daySelect='ngModel'
+      [ngClass]="{'error':daySelect.invalid && daySelect.touched}" (change)='DOB()'>
+        <option [value]="null">-Day-</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">17</option>
+        <option value="18">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+        <option value="21">21</option>
+        <option value="22">22</option>
+        <option value="23">23</option>
+        <option value="24">24</option>
+        <option value="25">25</option>
+        <option value="26">26</option>
+        <option value="27">27</option>
+        <option value="28">28</option>
+        <option value="29">29</option>
+        <option value="30">30</option>
+        <option value="31">31</option>
+      </select>
+      <select class="form-control error" name='month' required pattern='^[0-9]{1,2}$' [(ngModel)]="month" #monthSelect='ngModel'
+        [ngClass]="{'error':monthSelect.invalid && monthSelect.touched}" (change)='DOB()'>
+        <option [value]="null">-Month-</option>
+        <option value="1">Jan</option>
+        <option value="2">Feb</option>
+        <option value="3">Mar</option>
+        <option value="4">Apr</option>
+        <option value="5">May</option>
+        <option value="6">Jun</option>
+        <option value="7">Jul</option>
+        <option value="8">Aug</option>
+        <option value="9">Sep</option>
+        <option value="10">Oct</option>
+        <option value="11">Nov</option>
+        <option value="12">Dec</option>
+      </select>
+      <select class="form-control" name='year' required pattern='^[0-9]{4}$' [(ngModel)]="year" #yearSelect='ngModel'
+        [ngClass]="{'error':yearSelect.invalid && yearSelect.touched}" (change)='DOB()'>
+        <option [value]="null">-Year-</option>
+        <option *ngFor='let year of years' [value]="year">{{year}}</option>
+      </select>
+    </div>
+    <!-- <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" *ngIf='date_of_birth.invalid && date_of_birth.touched'></span> -->
+  </div>
 
   <div class="form-group" [ngClass]="{'has-feedback has-error':mobile.invalid && mobile.touched}">
     <label>Mobile</label>
     <input type="text" class="form-control" placeholder="eg. 0411 111 111" name='mobile' [(ngModel)]="data.mobile"
-      #mobile='ngModel' required appInputValidater appInputFormatter='phone'>
+      #mobile='ngModel' pattern="^[0-9 ]{9,12}$" required appInputValidater appInputFormatter='phone'>
     <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" *ngIf='mobile.invalid && mobile.touched'></span>
   </div>
   <div class="form-group" [ngClass]="{'has-feedback has-error':email.invalid && email.touched}">
     <label>Email</label>
-    <input type="text" class="form-control" placeholder="eg. email@gmail.com" name='email' [(ngModel)]="data.email" #email='ngModel'
-      required appInputValidater pattern='^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'>
+    <input type="text" class="form-control" placeholder="eg. email@gmail.com" name='email' [(ngModel)]="data.email"
+      #email='ngModel' required appInputValidater pattern='^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'>
     <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" *ngIf='email.invalid && email.touched'></span>
   </div>
   <div class="clearfix bs-main-footer">

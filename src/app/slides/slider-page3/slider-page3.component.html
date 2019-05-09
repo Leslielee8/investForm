@@ -1,24 +1,24 @@
 <form class="bs-left-container" #myForm="ngForm">
   <div class=" text-left text-white bs-title">
-    <h4 class="bs-text-maxiron">You are a member now</h4>
-    <p>Changing the way you earn</p>
+    <h4 class="bs-text-maxiron">A better way to earn</h4>
+    <!-- <p>Changing the way you earn</p> -->
   </div>
-  <p>As a member, you can now enjoy a competitive return for your savings. Let your money work for you and
-    not against you.</p>
+  <p>As an investor, you can now enjoy a competitive return for your investment. Let your money work for you and not
+    against you.</p>
   <div class="form-group" [ngClass]="{'has-feedback has-error':deposit_amount.invalid && deposit_amount.touched}">
-    <label for="exampleInputEmail1">How much would you like to deposit?&nbsp;<a class="text-primary" href="javascript:void(0);"><i
-          class="fas fa-info-circle" popover='You can add to your account at any time. Minimum deposit is $5,000.'
+    <label for="exampleInputEmail1">How much would you like to invest?&nbsp;<a class="text-primary" href="javascript:void(0);"><i
+          class="fas fa-info-circle" popover='Minimum investment amount is $5,000, further increments in multiples of $5,000.'
           triggers="mouseenter:mouseleave"></i></a> </label>
     <!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email"> -->
     <div class="input-group">
       <div class="input-group-addon">$</div>
       <input type="text" class="form-control" placeholder="eg. 5000" name="deposit_amount" [(ngModel)]="data.deposit_amount"
-        appInputValidater required pattern='^[0-9,]{6,}|[5-9],[0-9]{3}$' #deposit_amount='ngModel' appInputFormatter='amount'>
-      <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" *ngIf='deposit_amount.invalid && deposit_amount.touched'></span>
+        appInputValidater required pattern='^([0-9,]{6,})|([5-9],[0-9]{3})$' #deposit_amount='ngModel' appInputFormatter='amount'>
+      <span class="glyphicon glyphicon-remove form-control-feedback" style="top:0!important;" aria-hidden="true" *ngIf='deposit_amount.invalid && deposit_amount.touched'></span>
     </div>
     <span class="text-danger" *ngIf='deposit_amount.invalid && deposit_amount.touched'>minimun $5,000</span>
   </div>
-  <p>Select your term</p>
+  <p>Select your Investment term</p>
   <!--  <div class="list-group">
     <div class="list-group-item">
       <div class="row ">
@@ -41,9 +41,18 @@
     please, select your term.
   </div> -->
   <!-- <div class='nouislider-container' [hidden]='term === undefined || term === 2'> -->
-  <div class='nouislider-container'>
+  <!-- <div class='nouislider-container'>
     <nouislider class='nouislider' [config]='someKeyboardConfig' #nouislider [tooltips]='true' [(ngModel)]="data.term" name='term'
       (ngModelChange)='onTermChange()'></nouislider>
+  </div> -->
+  <div>
+    <select class="form-control" [(ngModel)]="data.term" name='term' (ngModelChange)='onTermChange()'>
+      <option value="3">3 months</option>
+      <option value="6">6 months</option>
+      <option value="12">12 months</option>
+      <option value="24">24 months</option>
+      <option value="36">36 months</option>
+    </select>
   </div>
   <div class="interest-container">
     <h5>Interest</h5>
@@ -52,17 +61,19 @@
         <div>
           Annual Rate:
           <div class="inerest-text">{{data.annual_rate|percent:'0.0-4'}}</div>
-          </div>
+        </div>
       </div>
       <div class="col-xs-6">
         <div>
           Monthly earning:
           <br />
-          <div class="inerest-text money-text"><sup>$</sup>{{(calc(data.deposit_amount,data.annual_rate) | number:'0.2-4') || 0}}</div></div>
+          <div class="inerest-text money-text"><sup>$</sup>{{(calc(data.deposit_amount,data.annual_rate) |
+            number:'0.2-2') || 0}}</div>
+        </div>
       </div>
     </div>
   </div>
-  
+
   <!-- <table class="table table-bordered bs-term-table ">
     <tr class="title">
       <th>Terms</th>
@@ -88,8 +99,8 @@
     </tr>
   </table> -->
   <p>
-    Note: Monthly earning are indicative only. The performance of the Funds, the repayment of capital or of
-    any particular rate of return is not guaranteed.
+    Note: Monthly earning is indicative only. The performance of the Trust, the repayment of capital or of any
+    particular rate of return is not guaranteed.
   </p>
   <div class="clearfix bs-main-footer">
     <button type="button" class="btn btn-back pull-left" (click)="swiperManager.prevSlide()"><i class="fas fa-arrow-left"></i>&nbsp;Back</button>

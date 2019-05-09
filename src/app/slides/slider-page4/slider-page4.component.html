@@ -1,38 +1,46 @@
 <form #myForm='ngForm' class="bs-left-container">
-  <h5>Declaration</h5>
+  <!-- <h5>Declaration</h5> -->
   <div class="form-group">
+    <label>Are you a tax resident of Australia?&nbsp;<a class="text-primary" href="javascript:void(0);"><i class="fas fa-info-circle"
+          [popover]='popContent' triggers="mouseenter:mouseleave" container='body' placement='bottom'></i></a></label>
+    &nbsp;<ui-switch id="is_tax_resident_of_australia" [(ngModel)]="data.is_tax_resident_of_australia" name='is_tax_resident_of_australia'
+      (change)="refresh()"></ui-switch>
+    <div *ngIf='!data.is_tax_resident_of_australia'><small class="text-danger">A Self Certification Form will be
+        emailed to you to complete in order to comply with Foreign Account Tax Compliance Act (FATCA) And Common
+        Reporting Standard (CRS).</small></div>
+  </div>
+  <div class="form-group">
+    <label>Prefer to receive documents by email rather than post?</label>
+    &nbsp;<ui-switch id="prefer_receive_doc_by_email" [(ngModel)]="data.prefer_receive_doc_by_email" name='prefer_receive_doc_by_email'></ui-switch>
+  </div>
+  <div class="form-group" *ngIf='isShowText()' [ngClass]="{'has-feedback has-error':myForm.controls['politically_exposed_person_detail']?.invalid && myForm.controls['politically_exposed_person_detail']?.touched}">
     <label>Are you a politically exposed person?&nbsp;<a class="text-primary" href="javascript:void(0);"><i class="fas fa-info-circle"
-          popover='Politically exposed person” means an individual who holds a prominent public position or function in a government body.'
-          triggers="mouseenter:mouseleave" container='body'></i></a></label>
-    &nbsp;<ui-switch id="politically_exposed_person" [(ngModel)]="data.politically_exposed_person" name='politically_exposed_person'></ui-switch>
-  </div>
-  <div class="form-group">
-    <label>Are you a tax resident outside of Australia?&nbsp;<a class="text-primary" href="javascript:void(0);">
-        <i class="fas fa-info-circle" [popover]='popContent' triggers="mouseenter:mouseleave" container='body'
-          placement="bottom"></i></a></label>
-    &nbsp;<ui-switch id="resident_outside_au" [(ngModel)]="data.resident_outside_au" name='resident_outside_au'></ui-switch>
-    <ng-template #popContent>
-      <p>Foreign account tax compliance act (fatca) and common reporting standard (crs) self certification form.</p>
-      <p>Tax authorities require us to collect and report certain information about an investor’s tax residency status.
-        If you are unable to complete this form please seek appropriate advice relating to the tax information required
-        (as set out in the Automatic Exchange of Information Guidance published by the Australian Taxation office
-        www.ato.gov.au).
-      </p>
-    </ng-template>
-  </div>
-  <div class="form-group" *ngIf='isShowText()'>
-    <label>Would like to receive an annual report for the Fund?</label>
-    &nbsp;<ui-switch id="receive_annual_report" [(ngModel)]="data.receive_annual_report" name='receive_annual_report'></ui-switch>
+          popover='“Politically exposed person” means an individual who holds a prominent public position or function 
+            in a government body or an international organisation or who is an immediate family member or close associate of such a person.'
+          triggers="mouseenter:mouseleave" container='body' placement='bottom'></i></a></label>
+    &nbsp;<ui-switch id="is_not_politically_exposed_person" [(ngModel)]="is_politically_exposed_person" name='is_not_politically_exposed_person'
+      (change)="refresh()"></ui-switch>
+    <div *ngIf='is_politically_exposed_person'>
+      <small class="text-danger">Please provide detail</small><br />
+      <textarea class="form-control" name="politically_exposed_person_detail" rows="5" [(ngModel)]="data.politically_exposed_person_detail"
+        required appInputValidater></textarea>
+    </div>
   </div>
   <div class="form-group" [ngClass]="{'has-feedback has-error':tax_file_number.invalid && tax_file_number.touched}">
-    <label>Tax File Number</label>
+    <label>Tax File Number&nbsp;<a class="text-primary" href="javascript:void(0);">
+        <i class="fas fa-info-circle" popover='Quotation of your Tax File Number (TFN) or Australian Business Number (ABN) is not compulsory and will not
+          affect your registration. However, if you do not provide this information we will be required to deduct tax from
+          your distributions at the highest marginal rate. If exempt, please supply supporting documentation.'
+          triggers="mouseenter:mouseleave" container='body' placement="bottom"></i></a></label>
     <input type="text" class="form-control" pattern="^[0-9]{0,15}$" required [(ngModel)]="data.tax_file_number" name='tax_file_number'
       #tax_file_number="ngModel" appInputValidater>
     <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" *ngIf='tax_file_number.invalid && tax_file_number.touched'></span>
   </div>
   <br />
-  <h5 class=""><b>Bank account for interest earnings</b></h5>
-  <div class="form-horizontal">
+  <h5 class=""><b>Bank account for interest earnings</b>&nbsp;<a class="text-primary" href="javascript:void(0);"><i
+        class="fas fa-info-circle" popover='Must be in the same name as the Investor' triggers="mouseenter:mouseleave"
+        container='body' placement='bottom'></i></a></h5>
+  <div class="form-horizontal bank-account-container">
     <div class="form-group" [ngClass]="{'has-feedback has-error':account_holder.invalid && account_holder.touched}">
       <label class="col-sm-4 control-label">Account Holder</label>
       <div class="col-sm-8">
@@ -63,46 +71,126 @@
   <br />
   <h5>Declaration and Signature</h5>
   <div class="declaration-container" *ngIf='isShowText()'>
-    <p>1. I declare that the details given on this Registration Form are true and correct. </p>
-    <p>2. declare that Maxiron Asset Management Pty Ltd is authorised to maintain this information to be used
-      for providing the applicant with information about future offers and invest in a particular product. If
-      signed under power of attorney, the attorney encloses a certified copy of the power of attorney and
-      declares that he/she has not received notice of revocation of that power.</p>
-    <p>3. My information will be collected and used in accordance with Primary Securities Ltd's privacy policy;</p>
-    <p>4. The information provided in the FATCA / CRS section may be disclosed to the Australian Taxation Office or
-      any other government bodies, including bodies located overseas, to enable it to be reported and used in
-      compliance with any FATCA or CRS regulations;</p>
+    <p><b>We declare and agree that:</b></p>
+    <p>1. The details given in this application are true and correct.</p>
+    <p>2. I am over 18 years of age.</p>
+    <p>3. My information will be collected and used in accordance with Primary Securities Ltd and Maxiron Asset
+      Management Pty Ltd’s privacy policy.</p>
+    <p>4. The information provided in the FATCA / CRS section may be disclosed to the Australian Taxation Office or any
+      other government bodies, including bodies located overseas, to enable it to be reported and used in compliance
+      with any FATCA or CRS regulations.</p>
     <p>5. I will notify Primary Securities Ltd with any changes to the information provided by me and provide any
-      futher information reasonably required by Primary Securities Ltd to comply with any obligation under the FATCA
-      / CRS regulations within 30 days of such change in circumstances.</p>
-    <p>6. I have read and understood the current Product Disclosure Statement to which this application relates and
-      agree to be bound by the Constitution governing the Trust;</p>
-    <p>7. I am not aware of and have no reason to suspect that the moneys used to fund our investment have been or
-      will be derived from or realted to any money laundering, terrorism financing or similar illegal activities and
-      that I will continue to comply with Australian anti money laundering and counter terrorism financing laws.</p>
-    <p>8. We acknowledge that the Trust is subject to investment risks, which could include delays in repayment, and
-      loss of income and capital invested and that no member of Primary Securities Ltd, or any of its agents
-      guarantees the performance of the Trust or any particular rate of return;</p>
-    <p>9. If signed under power of attorney, the attorney encloses a certified copy of the power of attorney and
-      declares that he/she has not received notice of revocation of that power.</p>
+      further information reasonably
+      required by Primary Securities Ltd to comply with any obligation under the FATCA / CRS regulations within 30 days
+      of such change in circumstances.</p>
+    <p>6. I am not aware of and have no reason to suspect that the moneys used to fund my investment have been or will
+      be derived from or related
+      to any money laundering, terrorism financing or similar illegal activities and that I will continue to comply
+      with Australian anti money laundering and
+      counter terrorism financing laws.</p>
+    <p>7. I acknowledge that the Trust is subject to investment risks, which could include delays in repayment, and
+      loss of income and capital invested and that no member of Primary Securities Ltd, or any of its agents guarantees
+      the perfo
+      rmance of the Trust or any particular rate of return.</p>
+    <p>8. If signed under power of attorney, the attorney encloses a certified copy of the power of attorney and
+      declare
+      s that he/she has not received notice of revocation of that power.</p>
+    <p>9. I confirm that I am authorised to provide the personal details presented and I consent to my information
+      being passed to and checked with the document issuer, official record holder, a credit bureau and authorised
+      third parties for the purpose of verifying my identity and address.</p>
   </div>
-  <div *ngIf='!isShowText()'>
-    <p>I. I declare that the details given on this Registration Form are true and correct. </p>
-    <p>2. declare that Maxiron Asset Management Pty Ltd is authorised to maintain this information to be used for
-      providing the applicant with information about future offers and invest in a particular product. If signed under
-      power of attorney, the attorney encloses a certified copy of the power of attorney and declares that he/she has
-      not received notice of revocation of that power.</p>
+  <div class="declaration-container" *ngIf='!isShowText()'>
+    <p><b>We declare and agree that:</b></p>
+    <p>1. The details given in this application are true and correct.</p>
+    <p>2. I am over 18 years of age.</p>
   </div>
   <!-- <i class="fas fa-check-square"></i> -->
+  <small>By typing my signature and sending it via the Internet, I acknowledge that I have read the Product Disclosure
+    Statement for the Maxiron Monthly Income Trust and understand all information provided during the application
+    process; that I intend Primary Securities Ltd to rely upon it; that I intend to be bound thereby; and that I
+    understand and agree that my electronic signature is the equivalent of a manual written signature.</small>
   <p class="checkbox-inline" (click)='isAgree = !isAgree'>
     <!-- <i class="fas fa-check-square"></i> -->
     <input type="checkbox" name='isAgree' [(ngModel)]="isAgree" required #agree='ngModel' id='isAgree'>
     <span class="custom-control-label">have read and agree to the above declaration</span>
   </p>
-  <p class="text-danger" *ngIf='agree.invalid && agree.touched'>please, confirm that read and agree the
-    Declaration</p>
+  <span></span>
+  <!--  <p class="checkbox-inline">
+    <input type="checkbox" name='isAgreePDS' [(ngModel)]="isAgreePDS" required #agreePDS='ngModel' id='isAgreePDS'
+      (click)='isAgreePDS = !isAgreePDS'>
+    <span class="custom-control-label" (click)='isAgreePDS = !isAgreePDS'>I have read and downloaded a copy of the
+    </span><a href="https://www.maxironwealth.com.au/pds" target="_blank" (click)='openPSD()'>PDS</a>.
+  </p>-->
+  <p class="text-danger" *ngIf='agree.invalid && agree.touched'>please,
+    confirm that read and agree the
+    Declaration</p> 
   <div class="clearfix bs-main-footer">
     <button type="button" class="btn btn-back pull-left" (click)="swiperManager.prevSlide()"><i class="fas fa-arrow-left"></i>&nbsp;Back</button>
     <button type="button" class="btn btn-continue pull-right" (click)="complete()"><i class="fas fa-arrow-right"></i>&nbsp;Complete</button>
+
+    <!-- <div class="modal fade" #staticModal='bs-modal' bsModal tabindex="-1" role="dialog" aria-labelledby="dialog-static-name">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="clearfix">
+              <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h5  id="dialog-static-name" class="modal-title pull-left bs-text-maxiron">To complete submission</h5>
+            </div>
+            <small>please type in your name {{data.full_name}}</small>
+          </div>
+          <div class="modal-body">
+            <form #nameForm='ngForm'>
+              <div class="form-group" [ngClass]="{'has-feedback has-error':submissionModel.invalid && submissionModel.touched}">
+                <label>Your Name</label>
+                <input type="text" class="form-control" required [(ngModel)]="submission" name='submission'
+                  #submissionModel="ngModel" appInputValidater placeholder="eg. Tom Smith" appInputFormatter='fullname'>
+                <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" *ngIf='submissionModel.invalid && submissionModel.touched'></span>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-continue" (click)='Submit()'>Submit</button>
+          </div>
+        </div>
+      </div>
+    </div> -->
   </div>
 </form>
+<ng-template #popContent>
+  <div style="min-width:250px;">
+    <p>Foreign account tax compliance act (fatca) and common reporting standard (crs) self certification form.</p>
+    <p>Tax authorities require us to collect and report certain information about an investor’s tax residency
+      status.
+      If you are unable to complete this form please seek appropriate advice relating to the tax information
+      required
+      (as set out in the Automatic Exchange of Information Guidance published by the Australian Taxation office
+      www.ato.gov.au).
+    </p>
+  </div>
+</ng-template>
+<!-- <ng-template #nameModal>
+  <div class="modal-header">
+    <div class="clearfix">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h5 class="modal-title pull-left bs-text-maxiron">To complete submission</h5>
+    </div>
+    <small>please type in your name {{data.full_name}}</small>
+  </div>
+  <div class="modal-body">
+    <form #nameForm='ngForm'>
+      <div class="form-group" [ngClass]="{'has-feedback has-error':submissionModel.invalid && submissionModel.touched}">
+        <label>Your Name</label>
+        <input type="text" class="form-control" required [(ngModel)]="submission" name='submission' #submissionModel="ngModel"
+          appInputValidater placeholder="eg. Tom Smith" appInputFormatter='fullname'>
+        <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" *ngIf='submissionModel.invalid && submissionModel.touched'></span>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-continue" (click)='Submit()'>Submit</button>
+  </div>
+</ng-template> -->

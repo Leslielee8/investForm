@@ -18,7 +18,7 @@
 }
 
 .bs-left-container {
-  padding: 10px;
+  padding: 15px;
 }
 
 .btn {
@@ -339,7 +339,15 @@ h6 {
 
   font-size: 14px;
 }
-@media only screen and (min-width:360px) {
+@media only screen and (max-width:1000px) {
+  body{
+    font-size: -webkit-calc(15px + 5 * ((100vw - 360px)/600));
+
+    font-size: calc(15px + 5 * ((100vw - 360px) / 600));
+  }
+  .bs-3minutes{
+    font-size: 1.5em !important;
+  }
   .h1,
   h1 {
 
@@ -367,9 +375,9 @@ h6 {
   .h4,
   h4 {
 
-    font-size: -webkit-calc(16px + 8 * ((100vw - 360px)/600));
+    font-size: -webkit-calc(22px + 14 * ((100vw - 360px)/600));
 
-    font-size: calc(16px + 8 * ((100vw - 360px) / 600));
+    font-size: calc(22px + 14 * ((100vw - 360px) / 600));
   }
 
   .h5,
@@ -1682,141 +1690,6 @@ textarea {
   background-size: contain;
 }
 
-/* Icons */
-
-.icon {
-
-  font-style: normal;
-
-  position: relative;
-
-  overflow: hidden;
-
-  display: inline-block;
-
-  background-repeat: no-repeat;
-
-  background-position: 50% 50%;
-
-  width: 24px;
-
-  height: 24px;
-
-}
-
-.icon img,
-.icon svg {
-
-  width: 100%;
-
-  height: 100%;
-
-  vertical-align: top;
-
-  -ms-touch-action: none;
-
-  touch-action: none;
-
-}
-
-.icon span {
-
-  position: absolute;
-
-  top: -100px;
-
-}
-
-.icon-menu {
-
-  /**/
-
-  width: 60px;
-
-  height: 60px;
-
-}
-
-.icon-close svg {
-
-  padding: 2px;
-
-}
-
-.icon-facebook {
-
-  background-size: contain;
-
-  width: 24px;
-
-  height: 24px;
-
-}
-
-.icon-twitter {
-
-  background-size: contain;
-
-  width: 24px;
-
-  height: 24px;
-
-}
-
-.icon-instagram {
-
-  background-size: contain;
-
-  width: 24px;
-
-  height: 24px;
-
-}
-
-.icon-close {
-
-  /*SVG*/
-
-  outline: none;
-
-}
-
-.icon-close ellipse,
-.icon-close path {
-
-  stroke: #ffffff;
-
-  -moz-transition: all ease .25s;
-
-  -webkit-transition: all ease .25s;
-
-  -o-transition: all ease .25s;
-
-  transition: all ease .25s;
-
-}
-
-.icon-close.header_control-close {
-
-  width: 62px;
-
-  height: 62px;
-
-}
-
-.icon-arrow-top path {
-
-  fill: none;
-
-  stroke: #252E49;
-
-  stroke-width: 2;
-
-  stroke-linecap: round;
-
-  stroke-linejoin: round;
-
-}
 
 /* Header */
 
@@ -1968,20 +1841,6 @@ textarea {
 
 }
 
-.header_control-menu {
-
-  position: absolute;
-
-  top: 10px;
-
-  right: 10px;
-
-  padding: 0 10px;
-
-  z-index: 700;
-
-}
-
 #burger path {
 
   fill: #fff;
@@ -1998,35 +1857,6 @@ textarea {
 
 /*with nav open*/
 
-.overlay-nav.overlay-active~.header_control-menu {
-
-  display: none;
-
-}
-@media only screen and (max-width: 991px) {
-  .overlay-nav.overlay-active~.header_control-close {
-
-    display: block;
-
-  }
-
-}
-
-.header_control-close {
-
-  position: absolute;
-
-  padding: 10px;
-
-  top: 8px;
-
-  right: 8px;
-
-  z-index: 700;
-
-  display: none;
-
-}
 
 /* ensures white header text renders visibly
 
@@ -2358,7 +2188,7 @@ contrast class is removed with js if a header graphic is present reverting the h
 }
 
 .has-feedback label~.form-control-feedback {
-  top: 30px;
+  top: 30px !important;
 }
 
 bs-datepicker-container {
@@ -2395,12 +2225,13 @@ bs-datepicker-container {
 .btn.btn-continue {
   border: 1px solid transparent !important;
   color: #fff !important;
-  background: #4FD417;
+  background: #95c93d;
+  border-radius: 2px;
 
   &:active,
   &:focus,
   &:hover {
-    background: #44a11c !important;
+    background: #95c93d !important;
     outline: none;
   }
 }
@@ -2409,6 +2240,7 @@ bs-datepicker-container {
   border: 1px solid transparent !important;
   color: #fff !important;
   background: #d8d8d8;
+  border-radius: 2px;
 
   &:active,
   &:focus,
@@ -2418,8 +2250,22 @@ bs-datepicker-container {
   }
 }
 
-.dropzone-container {
+/* .dropzone-container {
   .dz-message {
     height: 80px !important;
   }
+
+  .dz-image {
+    img {
+      width: auto !important;
+    }
+  }
+} */
+
+/* .dz-default {
+  margin: 10px 0;
+  text-align: center;
+} */
+.banner_large {
+  display: block !important;
 }

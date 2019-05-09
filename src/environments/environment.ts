@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  domain: 'https://www.maxironwealth.com.au/develop2/'
+  domain: 'https://www.maxironwealth.com.au/'
 };
 
 /*

@@ -6,3 +6,21 @@
 h4 {
   margin: 0;
 }
+
+.postal-address-valid-container {
+  padding-top: 5px;
+}
+
+.input-group {
+  width: 100%;
+
+  select {
+    width: 33.33%;
+
+    &.error {
+      position: relative;
+      border-color: #ff0000;
+      background-color: #ffcccc;
+    }
+  }
+}

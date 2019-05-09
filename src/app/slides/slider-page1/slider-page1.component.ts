@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { SwiperManagerService } from 'src/app/service/swiper-manager.service';
 import { Hero } from 'src/app/entity/hero';
+import { FormService } from 'src/app/service/form.service';
 
 @Component({
   selector: 'app-slider-page1',
@@ -12,7 +13,7 @@ export class SliderPage1Component implements OnInit {
   @ViewChild('pop') popover;
   @ViewChild('myForm') myForm: NgForm;
   @Input() data: Hero;
-  constructor(public swiperManager: SwiperManagerService) { }
+  constructor(public swiperManager: SwiperManagerService, private formService: FormService) { }
 
   ngOnInit() {
   }
@@ -34,13 +35,18 @@ export class SliderPage1Component implements OnInit {
   }
 
   onSubmit() {
+    Object.keys(this.myForm.controls).map(key => {
+      this.myForm.controls[key].updateValueAndValidity();
+    });
     if (this.myForm.form.invalid) {
       Object.keys(this.myForm.controls).map(key => {
         this.myForm.controls[key].markAsTouched();
       });
       this.swiperManager.update();
     } else {
-      this.swiperManager.nextSlide();
+      this.formService.doComplete(this.data).subscribe(() => {
+        this.swiperManager.nextSlide();
+      });
     }
   }
 }

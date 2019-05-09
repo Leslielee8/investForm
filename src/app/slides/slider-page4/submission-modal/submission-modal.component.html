@@ -1,0 +1,27 @@
+<div class="modal-header">
+    <div class="clearfix">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h5 class="modal-title pull-left bs-text-maxiron">To complete submission</h5>
+    </div>
+    <small>please type in your name {{data.full_name}}</small>
+  </div>
+  <div class="modal-body">
+    <form #nameForm='ngForm'>
+      <div class="form-group" [ngClass]="{'has-feedback has-error':submissionModel.invalid && submissionModel.touched}">
+        <label>Your Name</label>
+        <input type="text" class="form-control" required [(ngModel)]="data.sign_name" name='submission' #submissionModel="ngModel"
+          appInputValidater placeholder="eg. Tom Smith" appInputFormatter='fullname'>
+        <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" *ngIf='submissionModel.invalid && submissionModel.touched'></span>
+        <span class="text-danger" aria-hidden="true" *ngIf='submissionModel.invalid && submissionModel.touched'>Please type in your name</span>
+      </div>
+    </form>
+    <!-- <br/>
+    <div class="clearfix">
+      <button type="button" class="btn btn-continue pull-right">Submit</button>
+    </div> -->
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-continue" (click)='Submit()'>Submit</button>
+  </div>

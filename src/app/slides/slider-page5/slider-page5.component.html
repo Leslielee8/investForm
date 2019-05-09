@@ -7,22 +7,42 @@
   <!-- <p class="text-center">
     <button class="btn btn-primary">Upload</button>
   </p> -->
-  <div>
-    <dropzone class="dropzone-container" [config]="config" [message]="'Click or drag images here to upload'" (error)="onUploadError($event)"
-      (success)="onUploadSuccess($event)"></dropzone>
+  <div class="dropzone-container">
+    <!-- <dropzone class="dropzone-container" [config]="dropZoneConfig" [message]="'Click or drag images here to upload'" (error)="onUploadError($event)"
+      (success)="onUploadSuccess($event)"></dropzone> -->
+    <form method="post" action="{{dropzoneUrl}}" id="form-dropzone"
+      class="dropzone" enctype="multipart/form-data">
+      <input type="hidden" name="investor_form_id" id="investor_form_id" value="{{data.id}}" />
+      <div class="fallback">
+        <input name="file[]" type="file" multiple />
+        <div class="sp-10"></div>
+        <button type="submit">Upload</button>
+      </div>
+    </form>
+    <!-- <div id="myDropzone">
+        <input name="investor_form_id" id="investor_form_id" value="16" />
+        <div class="fallback">
+            <input name="file[]" type="file" multiple />
+            <div class="sp-10"></div>
+            <button type="submit">Upload</button>
+        </div>
+      </div> -->
   </div>
   <p>Or, you can email to <code>investor@maxironwealth.com.au</code></p>
   <small>Document is to fulfil the requirements of the Anti-Money Laundering and Counter Terrorism Financing
     Legislation.</small>
-  <h5>2.Please transfer {{data.deposit_amount}} to the follow account.</h5>
+  <h5>2.Please transfer {{amount()|currency:'$':'symbol':'0.0-0'}} to the follow account.</h5>
   <table class="table table-bordered">
+    <tr>
+      <th>Account Name</th>
+      <td>
+        Primary Securities Ltd <br />
+        ABN: 96 089 812 635
+      </td>
+    </tr>
     <tr>
       <th>Bank</th>
       <td>Westpac</td>
-    </tr>
-    <tr>
-      <th>Account Name</th>
-      <td>Primary Securities Ltd ATF Maxiron Saver Class N Applications Account</td>
     </tr>
     <tr>
       <th>BSB</th>
@@ -33,8 +53,8 @@
       <td>444799</td>
     </tr>
     <tr>
-      <th>Reference</th>
-      <td>
+      <th>Reference<br />(Description on transfer)</th>
+      <td>{{data.reference}}
       </td>
     </tr>
   </table>
@@ -45,8 +65,8 @@
     <li>Interest earning is paid to your nominated bank account within 14 days after month end</li>
     <li>Monthly interest report will be emailed to you</li>
   </ol>
-  <div class="clearfix bs-main-footer">
+  <!-- <div class="clearfix bs-main-footer">
     <button type="button" class="btn btn-back pull-left" (click)="swiperManager.prevSlide()"><i class="fas fa-arrow-left"></i>&nbsp;Back</button>
-    <!-- <button type="button" class="btn btn-primary pull-right" ><i class="fas fa-arrow-right"></i>&nbsp;Continue</button> -->
-  </div>
+    <button type="button" class="btn btn-primary pull-right" ><i class="fas fa-arrow-right"></i>&nbsp;Continue</button>
+  </div> -->
 </form>

@@ -1,8 +1,15 @@
 .declaration-container {
   height: 200px;
   overflow-y: auto;
+  margin-bottom: 10px;
+  border: 1px solid #ebebeb;
+  border-radius: 4px;
+  padding: 5px;
+  box-shadow: 0px 0px 20px #cfcfcf;
 }
-
+.modal-title{
+  margin: 0;
+}
 .checkbox-inline {
   & > input {
     display: none;
@@ -42,4 +49,15 @@ h5 {
 
 .bs-main-footer {
   margin-top: 10px;
+}
+
+.bank-account-container {
+  .form-control-feedback {
+    top: 0 !important;
+
+    // right: 8px !important;
+  }
+}
+a{
+  color:#337ab7;
 }

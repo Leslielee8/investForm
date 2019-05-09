@@ -1,5 +1,6 @@
-import { Directive, Host, HostListener, Output, EventEmitter, Input } from '@angular/core';
+import { Directive, Host, HostListener, Output, EventEmitter, Input, ElementRef } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
+import { timer } from 'rxjs';
 
 @Directive({
   selector: '[appInputFormatter]',
@@ -38,7 +39,17 @@ export class InputFormatterDirective {
     }
   };
 
-  constructor(public currencyPipe: CurrencyPipe) {
+  constructor(public currencyPipe: CurrencyPipe, public elementRef: ElementRef) {
+    const sub = timer(0, 500).subscribe(r => {
+      this.elementRef.nativeElement.value = this.FOMATTER[this.appInputFormatter]
+        && this.FOMATTER[this.appInputFormatter].fn(this.elementRef.nativeElement.value);
+      // $event.target.value = this.FOMATTER[this.appInputFormatter] && this.FOMATTER[this.appInputFormatter].fn($event.target.value);
+      // console.log(this.elementRef.nativeElement.value);
+      this.ngModelChange.emit(this.elementRef.nativeElement.value);
+      if (this.elementRef.nativeElement.value) {
+        sub.unsubscribe();
+      }
+    });
   }
 
   @HostListener('input', ['$event']) onInputChange($event) {
@@ -52,7 +63,6 @@ export class InputFormatterDirective {
     $event.target.value = this.FOMATTER[this.appInputFormatter] && this.FOMATTER[this.appInputFormatter].fn($event.target.value);
     this.ngModelChange.emit($event.target.value);
   }
-
 
 
 }

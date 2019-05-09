@@ -1,5 +1,20 @@
 h4 {
   margin: 0;
 }
-.dropzone-container{
+
+.dropzone-container {
+  margin-bottom: 20px;
+  .dropzone {
+    background: #f5f5f5;
+    border: 2px dashed #999999;
+    padding: 10px;
+    border-radius: 5px;
+    min-height: auto;
+  }
+  
+}
+
+ol{
+  font-size: 14px;
+  margin-bottom: 20px;
 }
